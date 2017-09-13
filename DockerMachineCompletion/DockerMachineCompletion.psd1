@@ -4,7 +4,7 @@
 RootModule = 'DockerMachineCompletion'
 
 # Version number of this module.
-ModuleVersion = '0.12.2.170909'
+ModuleVersion = '0.12.2.170915'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -99,7 +99,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Add completers.'
+        ReleaseNotes = 'Fix error when there is no alias.'
 
     } # End of PSData hashtable
 
