@@ -1,4 +1,4 @@
-﻿# Docker Machine v0.12.2
+﻿# Docker Machine v0.14.0
 Register-Completer docker-machine @(
 	COMPGEN active Command 'Print which machine is active'
 	COMPGEN config Command 'Print the connection config for machine'
@@ -8,6 +8,7 @@ Register-Completer docker-machine @(
 	COMPGEN ip Command 'Get the IP address of a machine'
 	COMPGEN kill Command 'Kill a machine'
 	COMPGEN ls Command 'List machines'
+	COMPGEN mount Command 'Mount or unmount a directory from a machine with SSHFS.'
 	COMPGEN provision Command 'Re-provision existing machines'
 	COMPGEN regenerate-certs Command 'Regenerate TLS Certificates for a machine'
 	COMPGEN restart Command 'Restart a machine'
@@ -147,6 +148,7 @@ Register-Completer docker-machine_create -Option {
 			COMPGEN --digitalocean-backups Switch 'enable backups for droplet'
 			COMPGEN --digitalocean-image StringFlag 'Digital Ocean Image'
 			COMPGEN --digitalocean-ipv6 Switch 'enable ipv6 for droplet'
+			COMPGEN --digitalocean-monitoring Switch 'enable monitoring for droplet'
 			COMPGEN --digitalocean-private-networking Switch 'enable private networking for droplet'
 			COMPGEN --digitalocean-region StringFlag 'Digital Ocean region'
 			COMPGEN --digitalocean-size StringFlag 'Digital Ocean size'
@@ -164,9 +166,10 @@ Register-Completer docker-machine_create -Option {
 			COMPGEN --exoscale-availability-zone StringFlag 'exoscale availability zone'
 			COMPGEN --exoscale-disk-size IntFlag 'exoscale disk size (10, 50, 100, 200, 400)'
 			COMPGEN --exoscale-image StringFlag 'exoscale image template'
-			COMPGEN --exoscale-instance-profile StringFlag 'exoscale instance profile (small, medium, large, ...)'
+			COMPGEN --exoscale-instance-profile StringFlag 'exoscale instance profile (Small, Medium, Large, ...)'
 			COMPGEN --exoscale-security-group StringSliceFlag 'exoscale security group'
-			COMPGEN --exoscale-ssh-user StringFlag 'Set the name of the ssh user'
+			COMPGEN --exoscale-ssh-key StringFlag 'path to the SSH user private key'
+			COMPGEN --exoscale-ssh-user StringFlag 'name of the ssh user'
 			COMPGEN --exoscale-url StringFlag 'exoscale API endpoint'
 			COMPGEN --exoscale-userdata StringFlag 'path to file with cloud-init user-data'
 		}
@@ -213,6 +216,7 @@ Register-Completer docker-machine_create -Option {
 			COMPGEN --openstack-auth-url StringFlag 'OpenStack authentication URL'
 			COMPGEN --openstack-availability-zone StringFlag 'OpenStack availability zone'
 			COMPGEN --openstack-cacert StringFlag 'CA certificate bundle to verify against'
+			COMPGEN --openstack-config-drive Switch 'Enables the OpenStack config drive for the instance'
 			COMPGEN --openstack-domain-id StringFlag 'OpenStack domain ID (identity v3 only)'
 			COMPGEN --openstack-domain-name StringFlag 'OpenStack domain name (identity v3 only)'
 			COMPGEN --openstack-endpoint-type StringFlag 'OpenStack endpoint type (adminURL, internalURL or publicURL)'
@@ -311,9 +315,10 @@ Register-Completer docker-machine_create -Option {
 			COMPGEN --vmwarevsphere-datacenter StringFlag 'vSphere datacenter for docker VM'
 			COMPGEN --vmwarevsphere-datastore StringFlag 'vSphere datastore for docker VM'
 			COMPGEN --vmwarevsphere-disk-size IntFlag 'vSphere size of disk for docker VM (in MB)'
+			COMPGEN --vmwarevsphere-folder StringFlag 'vSphere folder for the docker VM. This folder must already exist in the datacenter.'
 			COMPGEN --vmwarevsphere-hostsystem StringFlag 'vSphere compute resource where the docker VM will be instantiated. This can be omitted if using a cluster with DRS.'
 			COMPGEN --vmwarevsphere-memory-size IntFlag 'vSphere size of memory for docker VM (in MB)'
-			COMPGEN --vmwarevsphere-network StringFlag 'vSphere network where the docker VM will be attached'
+			COMPGEN --vmwarevsphere-network StringSliceFlag 'vSphere network where the docker VM will be attached'
 			COMPGEN --vmwarevsphere-password StringFlag 'vSphere password'
 			COMPGEN --vmwarevsphere-pool StringFlag 'vSphere resource pool for docker VM'
 			COMPGEN --vmwarevsphere-username StringFlag 'vSphere username'
@@ -346,7 +351,13 @@ Register-Completer docker-machine_ls -Option {
 	COMPGEN '-t' IntFlag 'Timeout in seconds, default to 10s'
 }
 
+Register-Completer docker-machine_mount -Option {
+	COMPGEN --unmount Switch 'Unmount instead of mount'
+	COMPGEN '-u' Switch 'Unmount instead of mount'
+}
+
 Register-Completer docker-machine_regenerate-certs -Option {
+	COMPGEN --client-certs Switch 'Also regenerate client certificates and CA.'
 	COMPGEN --force Switch 'Force rebuild and do not prompt'
 	COMPGEN '-f' Switch 'Force rebuild and do not prompt'
 }
@@ -360,6 +371,8 @@ Register-Completer docker-machine_rm -Option {
 Register-Completer docker-machine_scp -Option {
 	COMPGEN --delta Switch 'Reduce amount of data sent over network by sending only the differences (uses rsync)'
 	COMPGEN '-d' Switch 'Reduce amount of data sent over network by sending only the differences (uses rsync)'
+	COMPGEN --quiet Switch 'Disables the progress meter as well as warning and diagnostic messages from ssh'
+	COMPGEN '-q' Switch 'Disables the progress meter as well as warning and diagnostic messages from ssh'
 	COMPGEN --recursive Switch 'Copy files recursively (required to copy directories)'
 	COMPGEN '-r' Switch 'Copy files recursively (required to copy directories)'
 }
