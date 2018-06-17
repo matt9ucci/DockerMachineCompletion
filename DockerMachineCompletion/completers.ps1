@@ -1,4 +1,4 @@
-﻿# Docker Machine v0.14.0
+﻿# Docker Machine v0.15.0
 Register-Completer docker-machine @(
 	COMPGEN active Command 'Print which machine is active'
 	COMPGEN config Command 'Print the connection config for machine'
@@ -106,6 +106,7 @@ Register-Completer docker-machine_create -Option {
 			COMPGEN --amazonec2-root-size IntFlag 'AWS root disk size (in GB)'
 			COMPGEN --amazonec2-secret-key StringFlag 'AWS Secret Key'
 			COMPGEN --amazonec2-security-group StringSliceFlag 'AWS VPC security group'
+			COMPGEN --amazonec2-security-group-readonly Switch 'Skip adding default rules to security groups'
 			COMPGEN --amazonec2-session-token StringFlag 'AWS Session Token'
 			COMPGEN --amazonec2-spot-price StringFlag 'AWS spot instance bid price (in dollar)'
 			COMPGEN --amazonec2-ssh-keypath StringFlag 'SSH Key for Instance'
@@ -202,6 +203,7 @@ Register-Completer docker-machine_create -Option {
 		hyperv {
 			COMPGEN --hyperv-boot2docker-url StringFlag 'URL of the boot2docker ISO. Defaults to the latest available version.'
 			COMPGEN --hyperv-cpu-count IntFlag 'number of CPUs for the machine'
+			COMPGEN --hyperv-disable-dynamic-memory Switch 'Disable dynamic memory management setting'
 			COMPGEN --hyperv-disk-size IntFlag 'Maximum size of dynamically expanding disk in MB.'
 			COMPGEN --hyperv-memory IntFlag 'Memory size for host in MB.'
 			COMPGEN --hyperv-static-macaddress StringFlag 'Hyper-V network adapter''s static MAC address.'
@@ -330,7 +332,7 @@ Register-Completer docker-machine_create -Option {
 
 Register-Completer docker-machine_env -Option {
 	COMPGEN --no-proxy Switch 'Add machine IP to NO_PROXY environment variable'
-	COMPGEN --shell StringFlag 'Force environment to be configured for a specified shell: [fish, cmd, powershell, tcsh], default is auto-detect'
+	COMPGEN --shell StringFlag 'Force environment to be configured for a specified shell: [fish, cmd, powershell, tcsh, emacs], default is auto-detect'
 	COMPGEN --swarm Switch 'Display the Swarm config instead of the Docker daemon'
 	COMPGEN --unset Switch 'Unset variables instead of setting them'
 	COMPGEN '-u' Switch 'Unset variables instead of setting them'
