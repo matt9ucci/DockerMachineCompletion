@@ -1,4 +1,4 @@
-﻿# Docker Machine v0.15.0
+﻿# Docker Machine v0.16.0
 Register-Completer docker-machine @(
 	COMPGEN active Command 'Print which machine is active'
 	COMPGEN config Command 'Print the connection config for machine'
