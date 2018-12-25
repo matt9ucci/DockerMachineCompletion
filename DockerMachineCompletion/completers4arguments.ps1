@@ -42,6 +42,15 @@ Register-Completer docker-machine_create_--engine-env {
 	"https_proxy=$env:https_proxy"
 	"no_proxy=$env:no_proxy"
 }
+Register-Completer docker-machine_create_--hyperv-virtual-switch {
+	param ([string]$wordToComplete)
+
+	if ($cmdlet = Get-Command Hyper-V\Get-VMSwitch -ErrorAction Ignore) {
+		& $cmdlet | ForEach-Object {
+			if ($_.Name -like "$wordToComplete*") { $_.Name }
+		}
+	}
+}
 Register-Completer docker-machine_create_--swarm-strategy { 'binpack', 'random', 'spread' }
 Register-Completer docker-machine_create_--virtualbox-ui-type { 'gui', 'sdl', 'headless', 'separate' }
 

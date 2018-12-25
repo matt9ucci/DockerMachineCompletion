@@ -88,7 +88,14 @@ $argumentCompleter = {
 		$completionResult = Invoke-Completer $completerName -Completer -ArgumentList $wordToComplete, $commandAst, $cursorPosition
 	}
 
-	$completionResult | Where-Object CompletionText -Like "$wordToCompleteSubstring*"
+	$completionResult | Where-Object CompletionText -Like "$wordToCompleteSubstring*" | ForEach-Object {
+		if ($_.CompletionText -match ' ') {
+			# for `--hyperv-virtual-switch` option
+			New-CompletionResult -CompletionText ("'{0}'" -f $_.CompletionText) -TextType $_.TextType -ToolTip $_.ToolTip -ListItemText $_.ListItemText -ResultType $_.ResultType
+		} else {
+			$_
+		}
+	}
 }
 
 Register-NativeCommandArgumentCompleter docker-machine $argumentCompleter
