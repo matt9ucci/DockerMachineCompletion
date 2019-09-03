@@ -16,7 +16,7 @@ $driverName = {
 	'vmwarevsphere'
 }
 
-$machineName = { docker-machine ls --quiet }
+$machineName = { Invoke-Command -ScriptBlock { docker-machine ls --quiet } -ErrorAction Ignore }
 
 $storagePath = {
 	if ($env:MACHINE_STORAGE_PATH) {

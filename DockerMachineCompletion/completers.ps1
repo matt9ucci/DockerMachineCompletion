@@ -1,4 +1,4 @@
-﻿# Docker Machine v0.16.0
+﻿# Docker Machine v0.16.2
 Register-Completer docker-machine @(
 	COMPGEN active Command 'Print which machine is active'
 	COMPGEN config Command 'Print the connection config for machine'
@@ -110,7 +110,8 @@ Register-Completer docker-machine_create -Option {
 			COMPGEN --amazonec2-session-token StringFlag 'AWS Session Token'
 			COMPGEN --amazonec2-spot-price StringFlag 'AWS spot instance bid price (in dollar)'
 			COMPGEN --amazonec2-ssh-keypath StringFlag 'SSH Key for Instance'
-			COMPGEN --amazonec2-ssh-user StringFlag 'Set the name of the ssh user'
+			COMPGEN --amazonec2-ssh-port IntFlag 'SSH port'
+			COMPGEN --amazonec2-ssh-user StringFlag 'SSH username'
 			COMPGEN --amazonec2-subnet-id StringFlag 'AWS VPC subnet id'
 			COMPGEN --amazonec2-tags StringFlag 'AWS Tags (e.g. key1,value1,key2,value2)'
 			COMPGEN --amazonec2-use-ebs-optimized-instance Switch 'Create an EBS optimized instance'
@@ -192,6 +193,7 @@ Register-Completer docker-machine_create -Option {
 			COMPGEN --google-preemptible Switch 'GCE Instance Preemptibility'
 			COMPGEN --google-project StringFlag 'GCE Project'
 			COMPGEN --google-scopes StringFlag 'GCE Scopes (comma-separated if multiple scopes)'
+			COMPGEN --google-service-account StringFlag 'GCE Service Account for the VM (email address)'
 			COMPGEN --google-subnetwork StringFlag 'Specify subnetwork in which to provision vm'
 			COMPGEN --google-tags StringFlag 'GCE Instance Tags (comma-separated)'
 			COMPGEN --google-use-existing Switch 'Don''t create a new VM, use an existing one'
@@ -230,6 +232,7 @@ Register-Completer docker-machine_create -Option {
 			COMPGEN --openstack-insecure Switch 'Disable TLS credential checking.'
 			COMPGEN --openstack-ip-version IntFlag 'OpenStack version of IP address assigned for the machine'
 			COMPGEN --openstack-keypair-name StringFlag 'OpenStack keypair to use to SSH to the instance'
+			COMPGEN --openstack-metadata StringFlag 'OpenStack Instance Metadata (e.g. key1,value1,key2,value2)'
 			COMPGEN --openstack-net-id StringFlag 'OpenStack network id the machine will be connected on'
 			COMPGEN --openstack-net-name StringFlag 'OpenStack network name the machine will be connected on'
 			COMPGEN --openstack-nova-network Switch 'Use the nova networking services instead of neutron.'
